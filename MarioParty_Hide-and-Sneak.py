@@ -6,8 +6,11 @@ def choose_hiding_spot(list):
 if __name__ == "__main__":
 
 # the game runs for three rounds
-    game_count = 10**5
+    game_count = 10000
     seeker_wins = 0
+    round_1_wins = 0
+    round_2_wins = 0
+    round_3_wins = 0
     for count in range(0, game_count):
         list_rock = []
         list_stump = []
@@ -38,12 +41,23 @@ if __name__ == "__main__":
             if spot != []:
                 for hider in spot:
                     list_hiders.remove(hider)
-                list_hiding_spots.remove(spot)
+            list_hiding_spots.remove(spot)
             
             for spot in list_hiding_spots:
                 spot.clear()
+            if list_hiders == []:
+                seeker_wins += 1
+                if round == 0:
+                    round_1_wins += 1
+                if round == 1:
+                    round_2_wins += 1
+                if round == 2:
+                    round_3_wins += 1
 
-        if list_hiders == []:
-            seeker_wins += 1
+    print(f"Win Chance: {seeker_wins/game_count}, Lose Chance: {(game_count - seeker_wins)/game_count}")
 
-    print(seeker_wins/game_count)
+    print(f"Round 1 wins per game: {round_1_wins/game_count}")
+
+    print(f"Round 2 wins per game: {round_2_wins/game_count}")
+
+    print(f"Round 3 wins per game: {round_3_wins/game_count}")
